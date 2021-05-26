@@ -3,12 +3,13 @@
 class M_Angsuran extends CI_Model
 {
 
-  function tampil_data()
+  function tampil_data($id_kredit)
   {
     $this->db->select('*');
     $this->db->from('tbl_angsuran');
     $this->db->join('tbl_kredit', 'tbl_angsuran.id_kredit = tbl_kredit.id_kredit');
     $this->db->join('tbl_customer', 'tbl_kredit.id_customer = tbl_customer.id_customer');
+    $this->db->where($id_kredit);
     $this->db->order_by('id_angsuran', 'ASC');
 
     return $this->db->get();

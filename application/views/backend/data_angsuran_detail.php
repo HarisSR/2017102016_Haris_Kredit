@@ -54,7 +54,7 @@
                   <td><?php echo $angsuran->tanggal_angsur ?></td>
                   <td><?php echo $angsuran->angsuran_ke ?></td>
                   <td>
-                    <a href="<?php echo base_url() . 'index.php/Backend/data_angsuran_delete/' . $angsuran->id_angsuran ?>" class="btn btn-danger" onclick="return(confirm('apakah anda yakin ?'))">Delete</a>
+                    <a href="<?php echo base_url() . 'index.php/Backend/data_angsuran_delete/' . $angsuran->id_angsuran . '/' . $angsuran->id_kredit ?>" class="btn btn-danger" onclick="return(confirm('apakah anda yakin ?'))">Delete</a>
                   </td>
                 </tr>
               <?php } ?>

@@ -631,10 +631,14 @@ class Backend extends CI_Controller
     redirect('Backend/data_angsuran_detail/' . $id_kredit);
   }
 
-  function  data_angsuran_delete($id_angsuran)
+  function  data_angsuran_delete($id_angsuran, $id_kredit)
   {
     $where = array(
       'id_angsuran' => $id_angsuran
+    );
+
+    $where_kredit = array(
+      'tbl_angsuran.id_kredit' => $id_kredit
     );
 
     $this->load->model('M_Angsuran');
@@ -642,16 +646,18 @@ class Backend extends CI_Controller
 
     //update urutan angsuran-ke
     $angsuran_ke = 1;
-    $id_kredit = 0;
-    $data['tbl_angsuran'] = $this->M_Angsuran->tampil_data()->result();
+    // $id_kredit = 0;
+    $data['tbl_angsuran'] = $this->M_Angsuran->tampil_data($where_kredit)->result();
     $newData = array(
       'angsuran_ke' => $angsuran_ke
     );
     foreach ($data['tbl_angsuran'] as $angsuran) {
       $this->M_Angsuran->update_data(['id_angsuran' => $angsuran->id_angsuran], $newData, 'tbl_angsuran');
       $newData['angsuran_ke']++;
-      $id_kredit = $angsuran->id_kredit;
+      // $id_kredit = $angsuran->id_kredit;
     }
+
+    echo $id_kredit . "<br>" . $id_angsuran;
     // $this->session->set_flashdata('id_kredit', $id_kredit);
     redirect('Backend/data_angsuran_detail/' . $id_kredit);
   }
