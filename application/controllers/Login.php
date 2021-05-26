@@ -28,7 +28,7 @@ class Login extends CI_Controller
       if ($data['status'] == 'aktif') {
         $this->session->set_userdata('akses', 'Aktif');
         $this->session->set_userdata('ses_id', $data['username']);
-        $this->session->set_userdata('ses_nama', $data['nama_admin']);
+        $this->session->set_userdata('ses_nama', $data['nama_user']);
         redirect('Backend');
       }
     } else {

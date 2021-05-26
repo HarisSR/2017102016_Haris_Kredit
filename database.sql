@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: May 26, 2021 at 03:47 AM
+-- Generation Time: May 26, 2021 at 06:20 AM
 -- Server version: 5.7.30
 -- PHP Version: 7.4.9
 
@@ -26,6 +26,15 @@ CREATE TABLE `tbl_angsuran` (
   `tanggal_angsur` date NOT NULL,
   `angsuran_ke` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_angsuran`
+--
+
+INSERT INTO `tbl_angsuran` (`id_angsuran`, `id_kredit`, `tanggal_angsur`, `angsuran_ke`) VALUES
+(7, 2, '2021-05-28', 1),
+(10, 2, '2021-05-28', 2),
+(11, 2, '2021-05-29', 3);
 
 -- --------------------------------------------------------
 
@@ -124,7 +133,8 @@ CREATE TABLE `tbl_kredit` (
 --
 
 INSERT INTO `tbl_kredit` (`id_kredit`, `id_customer`, `id_kendaraan`, `dp`, `tanggal_beli`, `banyak_angsuran`, `total_bayar`, `cicilan`, `status`) VALUES
-(2, '2', '5', 4000000, '2021-05-25', 12, 43680000, 3640000, '');
+(2, '2', '5', 4000000, '2021-05-25', 12, 43680000, 3640000, ''),
+(3, '2', '5', 10000, '2021-05-19', 6, 45569400, 7594900, '');
 
 -- --------------------------------------------------------
 
@@ -195,7 +205,7 @@ ALTER TABLE `tbl_user_admin`
 -- AUTO_INCREMENT for table `tbl_angsuran`
 --
 ALTER TABLE `tbl_angsuran`
-  MODIFY `id_angsuran` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_angsuran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_customer`
@@ -219,7 +229,7 @@ ALTER TABLE `tbl_kendaraan`
 -- AUTO_INCREMENT for table `tbl_kredit`
 --
 ALTER TABLE `tbl_kredit`
-  MODIFY `id_kredit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_kredit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_user_admin`

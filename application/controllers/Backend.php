@@ -522,7 +522,7 @@ class Backend extends CI_Controller
 
     $this->load->model('M_Kredit');
     $this->M_Kredit->input_data($data, 'tbl_kredit');
-    // redirect('Backend/data_kredit');
+    redirect('Backend/data_kredit');
   }
 
   function data_kredit_edit($id_customer)
@@ -582,8 +582,77 @@ class Backend extends CI_Controller
 
   function data_angsuran()
   {
+    $this->load->model('M_Kredit');
+    $data['tbl_kredit'] = $this->M_Kredit->tampil_data()->result();
     $this->load->view('backend/template/header.php');
-    $this->load->view('backend/data_angsuran.php');
+    $this->load->view('backend/data_angsuran.php', $data);
     $this->load->view('backend/template/footer.php');
+  }
+
+  function data_angsuran_detail($kredit = 0)
+  {
+    $id_kredit = "";
+    if (!$this->input->POST('id_kredit') || $this->input->POST('id_kredit') == "") {
+      $id_kredit = $kredit;
+    } else {
+      $id_kredit = $this->input->POST('id_kredit');
+    }
+
+    $where = array(
+      'tbl_angsuran.id_kredit' => $id_kredit
+    );
+
+    $this->load->model('M_Angsuran');
+    $data['tbl_angsuran'] = $this->M_Angsuran->view_data($where, 'tbl_angsuran')->result();
+
+    $this->load->model('M_Kredit');
+    $data['tbl_kredit'] = $this->M_Kredit->view_data(['id_kredit' => $id_kredit], 'tbl_kredit')->result();
+
+    $this->load->view('backend/template/header.php');
+    $this->load->view('backend/data_angsuran_detail.php', $data);
+    $this->load->view('backend/template/footer.php');
+  }
+
+  function data_angsuran_add()
+  {
+    $id_kredit = $this->input->POST('id_kredit');
+    $tanggal = $this->input->POST('tanggal');
+    $angsuran_ke = $this->input->POST('angsuran_ke');
+
+    $data = array(
+      'id_kredit' => $id_kredit,
+      'tanggal_angsur' => $tanggal,
+      'angsuran_ke' => $angsuran_ke
+    );
+
+    $this->load->model('M_Angsuran');
+    $this->M_Angsuran->input_data($data, 'tbl_angsuran');
+    // $this->session->set_flashdata('id_kredit', $id_kredit);
+    redirect('Backend/data_angsuran_detail/' . $id_kredit);
+  }
+
+  function  data_angsuran_delete($id_angsuran)
+  {
+    $where = array(
+      'id_angsuran' => $id_angsuran
+    );
+
+    $this->load->model('M_Angsuran');
+    $this->M_Angsuran->delete_data($where, 'tbl_angsuran');
+
+    //update urutan angsuran-ke
+    $angsuran_ke = 1;
+    $id_kredit = 0;
+    $data['tbl_angsuran'] = $this->M_Angsuran->tampil_data()->result();
+    $newData = array(
+      'angsuran_ke' => $angsuran_ke
+    );
+    foreach ($data['tbl_angsuran'] as $angsuran) {
+      $this->M_Angsuran->update_data(['id_angsuran' => $angsuran->id_angsuran], $newData, 'tbl_angsuran');
+      $newData['angsuran_ke']++;
+      $id_kredit = $angsuran->id_kredit;
+    }
+    // $this->session->set_flashdata('id_kredit', $id_kredit);
+    redirect('Backend/data_angsuran_detail/' . $id_kredit);
   }
 }

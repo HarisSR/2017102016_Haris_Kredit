@@ -54,7 +54,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="info">
             <span class="bg-gray-dark">hallo,</span>
-            <h5 class="bg-gray-dark">Data</h5>
+            <h6 class="bg-gray-dark"><?php echo $this->session->userdata('ses_nama') ?></h6>
           </div>
         </div>
 
