@@ -579,4 +579,11 @@ class Backend extends CI_Controller
     $this->M_Kredit->delete_data($where, 'tbl_kredit');
     redirect('Backend/data_kredit');
   }
+
+  function data_angsuran()
+  {
+    $this->load->view('backend/template/header.php');
+    $this->load->view('backend/data_angsuran.php');
+    $this->load->view('backend/template/footer.php');
+  }
 }
